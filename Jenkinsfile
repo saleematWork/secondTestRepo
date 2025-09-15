@@ -1,8 +1,8 @@
 pipeline {
     agent any
   environment {
-        // Convert Windows path to Unix path for Docker
-        DOCKER_WORKSPACE = "/c${env.WORKSPACE.replace('C:', '').replace('\\', '/')}"
+        DOCKER_IMAGE = 'python:3.9-windowsservercore'
+        CONTAINER_WORKDIR = 'C:\\app'
     }
     
     stages {
@@ -24,13 +24,21 @@ pipeline {
         stage('Lint') {                
                 agent {
                     docker {
-                        image 'python:3.9-slim'
-                        args '--workdir /app'
-                        reuseNode true
+                    image "${env.DOCKER_IMAGE}"
+                    args "-v ${env.WORKSPACE}:${env.CONTAINER_WORKDIR} -w ${env.CONTAINER_WORKDIR}"
+                    reuseNode true
                     }
                 }
             steps {
                 echo "Hello world Docker"
+                bat '''
+                    echo Current directory: %CD%
+                    dir
+                    
+                    python --version
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
+                '''
             }
             
         }

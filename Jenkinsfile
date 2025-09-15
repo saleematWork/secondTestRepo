@@ -3,7 +3,7 @@ pipeline {
     
    environment {
     // Convert Windows path to Unix path for Docker
-        DOCKER_WORKSPACE = "/c${env.WORKSPACE.replace('C:', '').replace('\\', '/')}"
+    //    DOCKER_WORKSPACE = "/c${env.WORKSPACE.replace('C:', '').replace('\\', '/')}"
     }
     
     stages {
@@ -24,27 +24,26 @@ pipeline {
         
         stage('Lint') {         
 
-           agent {
-                docker {
-                     docker.image('python:3.9-slim').inside("
-                        -v ${env.WORKSPACE}:${env.DOCKER_WORKSPACE}
-                        -w ${env.DOCKER_WORKSPACE}
-                    ")                              
-            }        
-                          
+          stage('Build in Docker') {
             steps {
-                echo 'Building inside Docker container...'
-                sh '''
-                    echo "Running in container: $(hostname)"
-                    python --version
-                    //pip install -r requirements.txt
-                    //python setup.py build
-                    # Or your build commands
-                    echo "Build completed in container"
-                '''
+                script {
+                    docker.image('python:3.9-slim').inside('-v /app:/app -w /app') {
+                        // Copy files to the container's working directory
+                        sh '''
+                            cp -r ${WORKSPACE}/* /app/ 2>/dev/null || true
+                            cd /app
+                            echo "Working in: $(pwd)"
+                            python --version
+                            # Your build commands here
+                        '''
+                    }
+                }
             }
-            
         }
+                }
+            
+            
+        
 
 
         stage('Unit Tests') {

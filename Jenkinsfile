@@ -1,8 +1,9 @@
 pipeline {
     agent any
+    
   environment {
-        DOCKER_IMAGE = 'python:3.9-windowsservercore'
-        CONTAINER_WORKDIR = 'C:\\app'
+      PYTHON_IMAGE = 'python:3.9-slim'  // Linux image
+        CONTAINER_WORKDIR = '/app'
     }
     
     stages {
@@ -22,21 +23,21 @@ pipeline {
         }
         
         stage('Lint') {                
-                agent {
-                    docker {
-                    image "${env.DOCKER_IMAGE}"
+               agent {
+                docker {
+                    image "${env.PYTHON_IMAGE}"
                     args "-v ${env.WORKSPACE}:${env.CONTAINER_WORKDIR} -w ${env.CONTAINER_WORKDIR}"
                     reuseNode true
-                    }
                 }
+            }
             steps {
                 echo "Hello world Docker"
-                bat '''
-                    echo Current directory: %CD%
-                    dir    
+               sh '''
+                    echo "Running on Linux container"
                     python --version
                     pip install --upgrade pip
                     pip install -r requirements.txt
+                    python -m pytest tests/ --junitxml=test-results.xml
                 '''
             }
             

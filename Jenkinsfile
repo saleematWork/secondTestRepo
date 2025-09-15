@@ -2,7 +2,6 @@ pipeline {
     agent any
     
   environment {
-      PYTHON_IMAGE = 'python:3.9-slim'  // Linux image
         CONTAINER_WORKDIR = '/app'
     }
     
@@ -24,11 +23,13 @@ pipeline {
         
         stage('Lint') {                
                agent {
+                
                 docker {
-                    image "${env.PYTHON_IMAGE}"
+                    image 'python:3.9-slim'
                     args "-v ${env.WORKSPACE}:${env.CONTAINER_WORKDIR} -w ${env.CONTAINER_WORKDIR}"
                     reuseNode true
                 }
+            
             }
             steps {
                 echo "Hello world Docker"

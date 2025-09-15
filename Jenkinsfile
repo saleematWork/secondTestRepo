@@ -31,14 +31,14 @@ pipeline {
                 }
             steps {
                 echo "Hello world Docker"
-                bat '''
-                    echo Current directory: %CD%
-                    dir
-                    
-                    python --version
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
-                '''
+                //bat '''
+                 //   echo Current directory: %CD%
+                  //  dir
+                  //  
+                   // python --version
+                   // pip install --upgrade pip
+                   // pip install -r requirements.txt
+                //'''
             }
             
         }

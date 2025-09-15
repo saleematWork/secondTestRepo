@@ -1,9 +1,11 @@
 pipeline {
     agent any
     
-  //  environment {
+    environment {
   //      PYTHONPATH = "${WORKSPACE}/src"
-  //  }
+    // Convert Windows path to Unix path for Docker
+        DOCKER_WORKSPACE = "/c${env.WORKSPACE.replace('C:', '').replace('\\', '/')}"
+    }
     
     stages {
         stage('Checkout') {
@@ -26,10 +28,9 @@ pipeline {
 
            agent {
                 docker {
-                    image 'python:3.9-slim'  // Or your preferred image
-                    //args '-v /tmp:/tmp -w /app'
-                    // Convert Windows path to Docker-compatible Unix path
-                      }
+                     docker.image('python:3.9-slim').inside("
+                        -v ${env.WORKSPACE}:${env.DOCKER_WORKSPACE}
+                        -w ${env.DOCKER_WORKSPACE}
             }        
                           
             steps {

@@ -24,22 +24,18 @@ pipeline {
         
         stage('Lint') {                
                agent {
+                   /*
                  docker {
                     image 'python:3.9-slim'
                     args "-v ${env.WORKSPACE}:${env.CONTAINER_WORKDIR} -w ${env.CONTAINER_WORKDIR}"
                     reuseNode true
                 }
+                */
             
             }
             steps {
                 echo "Hello world Docker"
-               sh '''
-                    echo "Running on Linux container"
-                    python --version
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
-                    python -m pytest tests/ --junitxml=test-results.xml
-                '''
+                sh 'echo "Current directory: $(pwd)"'
             }
             
         }

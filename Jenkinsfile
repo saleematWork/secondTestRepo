@@ -28,9 +28,23 @@ pipeline {
                 docker {
                     image 'python:3.9-slim'  // Or your preferred image
                     //args '-v /tmp:/tmp -w /app'
+                    // Convert Windows path to Docker-compatible Unix path
+                      }
+            }
+
+            steps {
+                scripts {                    
+                  def dockerPath = env.WORKSPACE.replace('\\', '/').replace('C:', '/c')                    
+                    docker.image('python:3.9-slim').inside("
+                        -v ${env.WORKSPACE}:${dockerPath}
+                        -w ${dockerPath}
+                    ") {
                     reuseNode true  // Reuse the workspace node
                 }
             }
+        }
+          
+              
             steps {
                 echo 'Building inside Docker container...'
                 sh '''

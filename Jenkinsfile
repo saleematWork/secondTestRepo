@@ -30,11 +30,8 @@ pipeline {
                 }
             }
             steps {
-                script {
-                    
-                }
+              
             }
-
             
         }
 

@@ -33,6 +33,7 @@ pipeline {
            
             steps {
                 echo "Hello world unit test"
+                sh 'python mainCode1.py'
             }
         }           
         
@@ -41,6 +42,7 @@ pipeline {
           
             steps {
                 echo "Hello world Integration tests"
+                sh 'python mainCode2.py'
                
             }
         }    

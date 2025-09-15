@@ -34,7 +34,7 @@ pipeline {
             */
             steps {
                 echo "Hello world Docker"
-                sh 'echo "Current directory: $(pwd)"'
+                echo "Current directory: $(pwd)"
             }
             
         }

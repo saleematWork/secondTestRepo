@@ -1,10 +1,9 @@
 pipeline {
     agent any
-    
-   //environment {
-    // Convert Windows path to Unix path for Docker
-    //    DOCKER_WORKSPACE = "/c${env.WORKSPACE.replace('C:', '').replace('\\', '/')}"
-    //}
+  environment {
+        // Convert Windows path to Unix path for Docker
+        DOCKER_WORKSPACE = "/c${env.WORKSPACE.replace('C:', '').replace('\\', '/')}"
+    }
     
     stages {
         stage('Checkout') {
@@ -24,17 +23,16 @@ pipeline {
         
         stage('Lint') {       
 
-         
-            steps {
+             steps {
                 script {
-                    docker.image('python:3.9-slim').inside('-v /app:/app -w /app') {
-                        // Copy files to the container's working directory
+                    docker.image('python:3.9-slim').inside("
+                        -v ${env.WORKSPACE}:${env.DOCKER_WORKSPACE}
+                        -w ${env.DOCKER_WORKSPACE}
+                    ") {
                         sh '''
-                            cp -r ${WORKSPACE}/* /app/ 2>/dev/null || true
-                            cd /app
-                            echo "Working in: $(pwd)"
+                            echo "Container path: ${DOCKER_WORKSPACE}"
                             python --version
-                            # Your build commands here
+                            # Your build commands
                         '''
                     }
                 }

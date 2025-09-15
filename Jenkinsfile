@@ -1,8 +1,7 @@
 pipeline {
     agent any
     
-    environment {
-  //      PYTHONPATH = "${WORKSPACE}/src"
+   environment {
     // Convert Windows path to Unix path for Docker
         DOCKER_WORKSPACE = "/c${env.WORKSPACE.replace('C:', '').replace('\\', '/')}"
     }
@@ -18,8 +17,7 @@ pipeline {
         stage('Setup') {
         
             steps {
-                echo "Hello world setup"
-              
+                echo "Hello world setup"              
             }
             
         }
@@ -31,6 +29,7 @@ pipeline {
                      docker.image('python:3.9-slim').inside("
                         -v ${env.WORKSPACE}:${env.DOCKER_WORKSPACE}
                         -w ${env.DOCKER_WORKSPACE}
+                    ")                              
             }        
                           
             steps {
@@ -38,8 +37,8 @@ pipeline {
                 sh '''
                     echo "Running in container: $(hostname)"
                     python --version
-                    pip install -r requirements.txt
-                    python setup.py build
+                    //pip install -r requirements.txt
+                    //python setup.py build
                     # Or your build commands
                     echo "Build completed in container"
                 '''

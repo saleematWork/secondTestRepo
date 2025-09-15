@@ -22,10 +22,7 @@ pipeline {
             
         }
         
-        stage('Lint') {
-           // steps {
-           //     echo "Hello world Lint"               
-          //  }
+        stage('Lint') {         
 
              agent {
                 docker {
@@ -34,11 +31,7 @@ pipeline {
             }
             steps {
                 script {
-                    // Install dependencies if needed
-                    // sh 'pip install -r requirements.txt'
                     
-                    // Run Python script
-                    //sh 'python mainCode1.py'
                 }
             }
 

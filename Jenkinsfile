@@ -1,10 +1,10 @@
 pipeline {
     agent any
     
-   environment {
+   //environment {
     // Convert Windows path to Unix path for Docker
     //    DOCKER_WORKSPACE = "/c${env.WORKSPACE.replace('C:', '').replace('\\', '/')}"
-    }
+    //}
     
     stages {
         stage('Checkout') {

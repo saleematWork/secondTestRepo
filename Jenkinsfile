@@ -22,9 +22,9 @@ pipeline {
             
         }
         
-        stage('Lint') {         
+        stage('Lint') {       
 
-          stage('Build in Docker') {
+         
             steps {
                 script {
                     docker.image('python:3.9-slim').inside('-v /app:/app -w /app') {
@@ -40,7 +40,7 @@ pipeline {
                 }
             }
         }
-                }
+                
             
             
         

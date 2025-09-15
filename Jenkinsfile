@@ -27,7 +27,7 @@ pipeline {
            agent {
                 docker {
                     image 'python:3.9-slim'  // Or your preferred image
-                    args '-v /tmp:/tmp -w /app'
+                    //args '-v /tmp:/tmp -w /app'
                     reuseNode true  // Reuse the workspace node
                 }
             }

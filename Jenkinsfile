@@ -2,7 +2,8 @@ pipeline {
     agent any
     
   environment {
-        CONTAINER_WORKDIR = '/app'
+       CONTAINER_WORKDIR = '/app'
+       CONTAINER_VOLUME = '/data'
     }
     
     stages {
@@ -23,8 +24,7 @@ pipeline {
         
         stage('Lint') {                
                agent {
-                
-                docker {
+                 docker {
                     image 'python:3.9-slim'
                     args "-v ${env.WORKSPACE}:${env.CONTAINER_WORKDIR} -w ${env.CONTAINER_WORKDIR}"
                     reuseNode true

@@ -23,14 +23,13 @@ pipeline {
         }
         
         stage('Lint') {
-          //  steps {
-          //      echo "Hello world Lint"               
+           // steps {
+           //     echo "Hello world Lint"               
           //  }
 
              agent {
                 docker {
-                    image 'myapp'
-                //    args '-v /tmp:/tmp'  // Optional volume mounting
+                    image 'myapp'                
                 }
             }
             steps {

@@ -23,7 +23,7 @@ pipeline {
         }
         
         stage('Lint') {  
-            
+            /*
             agent {                   
                  docker {
                     image 'python:3.9-slim'
@@ -31,6 +31,7 @@ pipeline {
                     reuseNode true
                 }              
             }
+            */
             
             steps {
                 echo "Hello world Docker"

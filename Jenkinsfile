@@ -21,26 +21,17 @@ pipeline {
             
         }
         
-        stage('Lint') {       
-
-             steps {
-                script {
-                    docker.image('python:3.9-slim').inside("
-                        -v ${env.WORKSPACE}:${env.DOCKER_WORKSPACE}
-                        -w ${env.DOCKER_WORKSPACE}
-                    ") {
-                        sh '''
-                            echo "Container path: ${DOCKER_WORKSPACE}"
-                            python --version
-                            # Your build commands
-                        '''
-                    }
-                }
+        stage('Lint') {                
+                agent {
+                    image 'python:3.9-slim'
             }
+            steps {
+                echo "Hello world Docker"
+            }
+            
         }
                 
-            
-            
+                       
         
 
 

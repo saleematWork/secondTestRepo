@@ -24,7 +24,9 @@ pipeline {
         stage('Lint') {                
                 agent {
                     docker {
-                    image 'python:3.9-slim'
+                        image 'python:3.9-slim'
+                        args '--workdir /app'
+                        reuseNode true
                     }
                 }
             steps {

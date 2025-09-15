@@ -22,17 +22,16 @@ pipeline {
             
         }
         
-        stage('Lint') {                
-               agent {
-                   /*
+        stage('Lint') {  
+            /*
+            agent {                   
                  docker {
                     image 'python:3.9-slim'
                     args "-v ${env.WORKSPACE}:${env.CONTAINER_WORKDIR} -w ${env.CONTAINER_WORKDIR}"
                     reuseNode true
-                }
-                */
-            
+                }              
             }
+            */
             steps {
                 echo "Hello world Docker"
                 sh 'echo "Current directory: $(pwd)"'

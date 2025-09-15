@@ -24,13 +24,23 @@ pipeline {
         
         stage('Lint') {         
 
-             agent {
+           agent {
                 docker {
-                    image 'myapp'                
+                    image 'python:3.9-slim'  // Or your preferred image
+                    args '-v /tmp:/tmp -v ${WORKSPACE}:/app -w /app'
+                    reuseNode true  // Reuse the workspace node
                 }
             }
             steps {
-              echo "docker image"
+                echo 'Building inside Docker container...'
+                sh '''
+                    echo "Running in container: $(hostname)"
+                    python --version
+                    pip install -r requirements.txt
+                    python setup.py build
+                    # Or your build commands
+                    echo "Build completed in container"
+                '''
             }
             
         }

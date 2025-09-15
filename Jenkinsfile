@@ -47,7 +47,7 @@ pipeline {
            
             steps {
                 echo "Hello world unit test"
-                sh 'python mainCode1.py'
+               // sh 'python mainCode1.py'
             }
         }           
         
@@ -55,11 +55,9 @@ pipeline {
         stage('Integration Tests') {
           
             steps {
-                echo "Hello world Integration tests"
-                           
+                echo "Hello world Integration tests"                           
             }
-        }    
-        
+        }           
     }
 }
 

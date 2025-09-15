@@ -29,8 +29,8 @@ pipeline {
 
              agent {
                 docker {
-                    image 'python:3.9-slim'
-                    args '-v /tmp:/tmp'  // Optional volume mounting
+                    image 'myapp'
+                //    args '-v /tmp:/tmp'  // Optional volume mounting
                 }
             }
             steps {
@@ -39,7 +39,7 @@ pipeline {
                     // sh 'pip install -r requirements.txt'
                     
                     // Run Python script
-                    sh 'python mainCode1.py'
+                    //sh 'python mainCode1.py'
                 }
             }
 

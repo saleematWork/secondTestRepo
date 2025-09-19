@@ -22,7 +22,13 @@ pipeline {
             
         }
         
-        stage('Lint') {  
+        stage('Lint') {
+
+            script {
+                    docker.image('python:3.10-slim').inside {
+                        //sh 'pip install -r requirements.txt'
+                        sh 'python mainCode1.py'
+                    }
             /*
             agent {                   
                  docker {

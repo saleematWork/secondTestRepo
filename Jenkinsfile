@@ -24,8 +24,13 @@ pipeline {
             steps {
                 echo "Hello world Lint"    
                 script {
+                    // Use official Python image with git installed (or install git in container)
                     docker.image('python:3.10-slim').inside {
-                        sh 'mainCode1.py'
+                        // Install dependencies if you have requirements.txt
+                        sh 'pip install --no-cache-dir -r requirements.txt || true'
+
+                        // Run your Python script
+                        sh 'python mainCode1.py'
                     }
                 }
             }

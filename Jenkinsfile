@@ -24,13 +24,13 @@ pipeline {
             steps {
                 echo "Hello world Lint"    
                 script {
-                    // Use official Python image with git installed (or install git in container)
-                    docker.image('python:3.10-slim').inside {
-                        // Install dependencies if you have requirements.txt
-                        sh 'pip install --no-cache-dir -r requirements.txt || true'
+                    def workspacePath = pwd().replaceAll('\\\\', '/').replaceFirst('^([A-Za-z]):', '/$1').toLowerCase()
+                    // Converts C:\path\to\workspace to /c/path/to/workspace
 
-                        // Run your Python script
-                        sh 'python mainCode1.py'
+                    docker.image('python:3.10-slim').inside("-v ${workspacePath}:/app -w /app") {
+                        //sh 'pip install -r requirements.txt || true'
+                        sh 'mainCode1.py'
+                        
                     }
                 }
             }

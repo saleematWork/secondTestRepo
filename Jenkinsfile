@@ -25,7 +25,8 @@ pipeline {
                 echo "Hello world Lint"    
                 script {
                     def workspacePath = '/c/ProgramData/Jenkins/.jenkins/workspace/mysecondPipeline/'
-                    docker.image('python:3.10-slim').inside("-v ${workspacePath}:/app -w /app") {
+                    //.inside("-v ${workspacePath}:/app -w /app")
+                    docker.image('python:3.10-slim') {
                         //sh 'pip install -r requirements.txt || true'
                         //sh 'mainCode1.py'
                         

@@ -28,7 +28,7 @@ pipeline {
                     //.inside("-v ${workspacePath}:/app -w /app")
                     docker.image('python:3.10-slim') 
                         //sh 'pip install -r requirements.txt || true'
-                        //sh 'mainCode1.py'
+                        sh 'mainCode1.py'
                         
                     
                 }

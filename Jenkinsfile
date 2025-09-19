@@ -22,12 +22,19 @@ pipeline {
         
         stage('Lint') {
             steps {
-                echo "Hello world Lint"    
+                echo "Hello world Lint" 
+
+                
                 script {
                     def workspacePath = '/c/ProgramData/Jenkins/.jenkins/workspace/mysecondPipeline/'
                     
-                    docker.image('python:3.10-slim')
+                   
+                    docker.image('python:3.10-slim').inside {
+                    sh 'python --version'       // Runs inside the container
+                   // sh 'python script.py'       // Runs your Python script inside the container
+
                 }
+            }
              }
         }
 

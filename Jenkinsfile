@@ -27,7 +27,7 @@ pipeline {
                     def workspacePath = pwd().replaceAll('\\\\', '/').replaceFirst('^([A-Za-z]):', '/$1').toLowerCase()
                     // Converts C:\path\to\workspace to /c/path/to/workspace
 
-                    docker.image('python:3.14.0rc3-windowsservercore-ltsc2025').inside("-v ${workspacePath}:/app -w /app") {
+                    docker.image('python:3.10-slim').inside("-v ${workspacePath}:/app -w /app") {
                         //sh 'pip install -r requirements.txt || true'
                         sh 'mainCode1.py'
                         

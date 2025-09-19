@@ -9,9 +9,10 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main', 
-                    url: 'https://github.com/saleematWork/firstTestRepo.git'
+                    url: 'https://github.com/saleematWork/secondTestRepo.git'
             }
         }
+    }
         
         stage('Setup') {
         
@@ -29,6 +30,7 @@ pipeline {
                     docker.image('python:3.10-slim').inside {
                         sh 'mainCode1.py'
                     }
+                }
             }
         }
 
@@ -49,7 +51,7 @@ pipeline {
             }
         }    
         
-    }
+    
 }
 
     

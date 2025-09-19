@@ -6,21 +6,18 @@ pipeline {
   //  }
     
     stages {
+        
         stage('Checkout') {
             steps {
                 git branch: 'main', 
                     url: 'https://github.com/saleematWork/secondTestRepo.git'
-            }
+            }        
         }
-    }
         
-        stage('Setup') {
-        
+        stage('Setup') {        
             steps {
-                echo "Hello world setup"
-              
-            }
-            
+                echo "Hello world setup"              
+            }            
         }
         
         stage('Lint') {
@@ -49,7 +46,8 @@ pipeline {
                 echo "Hello world, Integration tests"
                
             }
-        }    
+        }
+    }
         
     
 }

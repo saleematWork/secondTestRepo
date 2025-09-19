@@ -1,60 +1,42 @@
 pipeline {
     agent any
     
-  environment {
-       CONTAINER_WORKDIR = '/app'
-       CONTAINER_VOLUME = '/data'
-    }
+  //  environment {
+  //      PYTHONPATH = "${WORKSPACE}/src"
+  //  }
     
     stages {
         stage('Checkout') {
             steps {
                 git branch: 'main', 
-                    url: 'https://github.com/saleematWork/secondTestRepo'
+                    url: 'https://github.com/saleematWork/firstTestRepo.git'
             }
         }
         
         stage('Setup') {
         
             steps {
-                echo "Hello world setup"              
+                echo "Hello world setup"
+              
             }
             
         }
         
         stage('Lint') {
-
-            /*
-            agent {                   
-                 docker {
-                    image 'python:3.9-slim'
-                    args "-v ${env.WORKSPACE}:${env.CONTAINER_WORKDIR} -w ${env.CONTAINER_WORKDIR}"
-                    reuseNode true
-                }              
-            }
-            */
-            
             steps {
-                echo "Hello world Docker"
-                
-            script {
+                echo "Hello world Lint"    
+                script {
                     docker.image('python:3.10-slim').inside {
-                        //sh 'pip install -r requirements.txt'
-                        sh 'python mainCode1.py'
+                        sh 'mainCode1.py'
                     }
             }
-         }
         }
-                
-                       
-        
 
 
         stage('Unit Tests') {
            
             steps {
                 echo "Hello world unit test"
-               // sh 'python mainCode1.py'
             }
         }           
         
@@ -62,11 +44,13 @@ pipeline {
         stage('Integration Tests') {
           
             steps {
-                echo "Hello world Integration tests"                           
+                echo "Hello world, Integration tests"
+               
             }
-        }           
+        }    
+        
     }
-
+}
 
     
         

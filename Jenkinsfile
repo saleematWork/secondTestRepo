@@ -24,7 +24,8 @@ pipeline {
             steps {
                 echo "Hello world Lint"    
                 script {
-                    def workspacePath = pwd().replaceAll('\\', '/').replaceFirst('^([A-Za-z]):', '/$1').toLowerCase()
+                    def workspacePath = pwd().replaceAll('\\', '/')
+                    //.replaceFirst('^([A-Za-z]):', '/$1').toLowerCase()
                     // Converts C:\path\to\workspace to /c/path/to/workspace
 
                     docker.image('python:3.10-slim').inside("-v ${workspacePath}:/app -w /app") {

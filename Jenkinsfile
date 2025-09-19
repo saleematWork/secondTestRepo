@@ -24,7 +24,10 @@ pipeline {
             steps {
                 echo "Hello world Lint"    
                 script {
-                    def workspacePath = pwd().replaceAll('\\\\', '/')
+                    def workspacePath = '/c/ProgramData/Jenkins/.jenkins/workspace/mysecondPipeline/'
+                    docker.image('python:3.10-slim').inside("-w ${workspacePath}") {
+                    // your commands here
+                    //def workspacePath = pwd().replaceAll('\\\\', '/')
                     // Converts C:\path\to\workspace to /c/path/to/workspace
 
                     docker.image('python:3.10-slim').inside("-v ${workspacePath}:/app -w /app") {
